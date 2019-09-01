@@ -1,5 +1,5 @@
 import React from 'react';
-import FilePicker from "../FilePicker/FilePicker";
+import FilePicker from '../FilePicker/FilePicker';
 import styles from './styles.scss';
 
 const App: React.FC = () => {

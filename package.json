@@ -12,6 +12,7 @@
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-scripts": "3.1.1",
+    "tslint-react": "^4.0.0",
     "typescript": "3.6.2"
   },
   "scripts": {
@@ -19,7 +20,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "electron": "electron ./electron-starter.js"
+    "electron": "electron ./electron-starter.js",
+    "lint": "tslint -p tsconfig.json -c tslint.json"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -37,6 +39,8 @@
     ]
   },
   "devDependencies": {
-    "electron": "^6.0.7"
+    "electron": "^6.0.7",
+    "tslint": "^5.19.0",
+    "tslint-config-airbnb": "^5.11.1"
   }
 }
