@@ -1,5 +1,4 @@
 import { ModeOfOperation } from 'aes-js';
-import { saveAs } from 'file-saver';
 import { key } from './constants';
 import saveToDisc from './saveToDisc';
 

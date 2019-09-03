@@ -18,7 +18,8 @@
     "import-name": false,
     "no-console": false,
     "object-literal-sort-keys": false,
-    "variable-name": [true, "ban-keywords", "check-format", "allow-pascal-case"]
+    "variable-name": [true, "ban-keywords", "check-format", "allow-pascal-case"],
+    "jsx-no-multiline-js": false
   },
   "rulesDirectory": []
 }
