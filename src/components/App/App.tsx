@@ -1,5 +1,5 @@
 import React, { ChangeEvent, Component } from 'react';
-import modes from '../../utilities/modes.enum';
+import Modes from '../../utilities/modes.enum';
 import Decrypt from '../Decrypt/Decrypt';
 import Encrypt from '../Encrypt/Encrypt';
 import Logo from '../Logo/Logo';
@@ -12,7 +12,7 @@ interface State {
 
 class App extends Component<{}, State> {
   public state = {
-    mode: modes.ctr,
+    mode: Modes.ctr,
   };
   public handleChange = (event: ChangeEvent<{name?: string; value: unknown}>) => {
     this.setState({
@@ -24,7 +24,7 @@ class App extends Component<{}, State> {
     return (
       <div className={styles.wrapper}>
         <Logo />
-        <Encrypt />
+        <Encrypt mode={mode}/>
         <Decrypt/>
         <ModesSelect
           onChange={this.handleChange}

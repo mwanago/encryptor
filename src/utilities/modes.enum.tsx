@@ -1,4 +1,4 @@
-enum modes {
+enum Modes {
   ctr = 'ctr',
   cbc = 'cbc',
   cfb = 'cfb',
@@ -6,4 +6,4 @@ enum modes {
   ecb = 'ecb',
 }
 
-export default modes;
+export default Modes;

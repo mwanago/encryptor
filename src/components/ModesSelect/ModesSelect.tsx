@@ -1,6 +1,6 @@
 import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
 import React, { ChangeEvent, FunctionComponent } from 'react';
-import modes from '../../utilities/modes.enum';
+import Modes from '../../utilities/modes.enum';
 import styles from './styles.module.scss';
 
 interface Props {
@@ -8,7 +8,7 @@ interface Props {
   mode?: string;
 }
 
-const options = Object.keys(modes);
+const options = Object.keys(Modes);
 
 const ModesSelect: FunctionComponent<Props> = ({ onChange, mode }) => (
   <div className={styles.wrapper}>
