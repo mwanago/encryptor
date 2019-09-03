@@ -1,11 +1,11 @@
-import React from 'react';
-import FilePicker from '../FilePicker/FilePicker';
+import React, { FunctionComponent } from 'react';
+import Encrypt from '../Encrypt/Encrypt';
 import styles from './styles.module.scss';
 
-const App: React.FC = () => {
+const App: FunctionComponent = () => {
   return (
     <div className={styles.wrapper}>
-      <FilePicker />
+      <Encrypt />
     </div>
   );
 };
