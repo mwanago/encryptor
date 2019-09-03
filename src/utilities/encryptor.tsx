@@ -1,4 +1,5 @@
 import { ModeOfOperation } from 'aes-js';
+import { saveAs } from 'file-saver';
 
 class Encryptor {
   public file: File;
@@ -17,7 +18,8 @@ class Encryptor {
   }
 
   private saveToDisc(encodedBytes: Uint8Array) {
-
+    const file = new File([new Blob([encodedBytes])], 'test.txt', { type: 'text/plain;charset=utf-8' });
+    saveAs(file);
   }
 }
 

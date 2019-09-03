@@ -5,6 +5,7 @@
   "dependencies": {
     "@material-ui/core": "^4.4.0",
     "@types/aes-js": "^3.1.0",
+    "@types/file-saver": "^2.0.1",
     "@types/jest": "24.0.18",
     "@types/node": "12.7.3",
     "@types/node-sass": "^4.11.0",
