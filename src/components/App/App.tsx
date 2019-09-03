@@ -1,4 +1,5 @@
 import React, { ChangeEvent, Component } from 'react';
+import modes from '../../utilities/modes.enum';
 import Decrypt from '../Decrypt/Decrypt';
 import Encrypt from '../Encrypt/Encrypt';
 import ModesSelect from '../ModesSelect/ModesSelect';
@@ -10,7 +11,7 @@ interface State {
 
 class App extends Component<{}, State> {
   public state = {
-    mode: undefined,
+    mode: modes.ctr,
   };
   public handleChange = (event: ChangeEvent<{name?: string; value: unknown}>) => {
     this.setState({

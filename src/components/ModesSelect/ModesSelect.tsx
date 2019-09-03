@@ -11,20 +11,22 @@ interface Props {
 const options = Object.keys(modes);
 
 const ModesSelect: FunctionComponent<Props> = ({ onChange, mode }) => (
-  <FormControl className={styles.wrapper}>
-    <InputLabel htmlFor="age-simple">Mode</InputLabel>
-    <Select
-      value={mode}
-      onChange={onChange}
-      autoWidth={true}
-    >
-      {
-        options.map(option => (
-          <MenuItem value={option} key={option}>{option}</MenuItem>
-        ))
-      }
-    </Select>
-  </FormControl>
+  <div className={styles.wrapper}>
+    <FormControl fullWidth={true}>
+      <InputLabel htmlFor="age-simple">Mode</InputLabel>
+      <Select
+        value={mode}
+        onChange={onChange}
+        className={styles.wrapper}
+      >
+        {
+          options.map(option => (
+            <MenuItem value={option} key={option}>{option}</MenuItem>
+          ))
+        }
+      </Select>
+    </FormControl>
+  </div>
 );
 
 export default ModesSelect;
