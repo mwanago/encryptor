@@ -10,6 +10,7 @@ interface Props {
 class Encrypt extends Component<Props> {
   public handleUpload = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
+      console.log('encrypting!');
       const file: File = event.target.files[event.target.files.length - 1];
       const encryptor = new Encryptor(file);
       encryptor.encrypt(this.props.mode);

@@ -1,3 +1,4 @@
+import { padding } from 'aes-js';
 import { initializationVector, key } from './constants';
 import getModeOfOperation from './getModeOfOperation';
 import Modes from './modes.enum';
@@ -14,7 +15,10 @@ class Encryptor {
     const buffer = await (this.file as any)
       .arrayBuffer();
     const bytes = new Uint8Array(buffer);
-    const encodedBytes = getModeOfOperation(mode, key, initializationVector)!.encrypt(bytes);
+
+    const padded = padding.pkcs7.pad(bytes);
+
+    const encodedBytes = getModeOfOperation(mode, key, initializationVector)!.encrypt(padded);
     saveToDisc(encodedBytes);
   }
 }
