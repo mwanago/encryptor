@@ -25,7 +25,7 @@ class App extends Component<{}, State> {
       <div className={styles.wrapper}>
         <Logo />
         <Encrypt mode={mode}/>
-        <Decrypt/>
+        <Decrypt mode={mode}/>
         <ModesSelect
           onChange={this.handleChange}
           mode={mode}
