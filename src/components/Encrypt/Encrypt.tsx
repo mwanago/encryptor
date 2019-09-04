@@ -9,10 +9,6 @@ interface Props {
   mode: Modes;
 }
 
-interface Obj {
-  [prop: string]: any;
-}
-
 interface State {
   shouldSend: boolean;
 }
@@ -22,10 +18,17 @@ class Encrypt extends Component<Props, State> {
     shouldSend: false,
   };
   public handleEncrypt = (event: ChangeEvent<HTMLInputElement>) => {
+    const {
+      shouldSend,
+    } = this.state;
     if (event.target.files) {
       const file: File = event.target.files[event.target.files.length - 1];
       const encryptor = new Encryptor(file);
-      encryptor.encrypt(this.props.mode);
+      if (shouldSend) {
+        encryptor.send(this.props.mode);
+      } else {
+        encryptor.save(this.props.mode);
+      }
       event.target.value = '';
     }
   }
