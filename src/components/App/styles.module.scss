@@ -7,4 +7,10 @@
   > div {
     margin: 5px;
   }
+  .buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-left: 115px;
+  }
 }
