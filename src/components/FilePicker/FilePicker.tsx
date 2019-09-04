@@ -5,20 +5,21 @@ import styles from './styles.module.scss';
 interface Props {
   onUpload: (event: ChangeEvent<HTMLInputElement>) => void;
   text: string;
+  id: string;
 }
 
 const FilePicker: FunctionComponent<Props> = ({
-  onUpload, text,
+  onUpload, text, id,
 }) => (
   <div className={styles.wrapper}>
     <input
       className={styles.input}
       type="file"
-      id="file-input"
+      id={id}
       onChange={onUpload}
     />
     <Button variant="contained" color="primary">
-      <label className={styles.label} htmlFor="file-input">
+      <label className={styles.label} htmlFor={id}>
         {text}
       </label>
     </Button>

@@ -8,9 +8,8 @@ interface Props {
 }
 
 class Decrypt extends Component<Props> {
-  public handleUpload = (event: ChangeEvent<HTMLInputElement>) => {
+  public handleDecrypt = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
-      console.log('decrypting!');
       const file: File = event.target.files[event.target.files.length - 1];
       const decryptor = new Decryptor(file);
       decryptor.decrypt(this.props.mode);
@@ -18,7 +17,11 @@ class Decrypt extends Component<Props> {
   }
   public render() {
     return (
-      <FilePicker text="decrypt" onUpload={this.handleUpload}/>
+      <FilePicker
+        text="decrypt"
+        onUpload={this.handleDecrypt}
+        id="decrypt"
+      />
     );
   }
 }
