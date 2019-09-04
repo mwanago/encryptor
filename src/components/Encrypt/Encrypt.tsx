@@ -13,6 +13,7 @@ class Encrypt extends Component<Props> {
       const file: File = event.target.files[event.target.files.length - 1];
       const encryptor = new Encryptor(file);
       encryptor.encrypt(this.props.mode);
+      event.target.value = '';
     }
   }
   public render() {

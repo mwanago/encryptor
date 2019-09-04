@@ -13,6 +13,7 @@ class Decrypt extends Component<Props> {
       const file: File = event.target.files[event.target.files.length - 1];
       const decryptor = new Decryptor(file);
       decryptor.decrypt(this.props.mode);
+      event.target.value = '';
     }
   }
   public render() {
