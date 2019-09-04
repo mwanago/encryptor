@@ -30,6 +30,7 @@ class Encryptor {
 
     const formData = new FormData();
     formData.append('file', file);
+    formData.append('mode', mode);
 
     try {
       const response = await fetch(process.env.REACT_APP_API_URL, {

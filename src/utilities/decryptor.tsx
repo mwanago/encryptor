@@ -1,4 +1,4 @@
-import { ModeOfOperation, padding } from 'aes-js';
+import { padding } from 'aes-js';
 import { initializationVector, key } from './constants';
 import getModeOfOperation from './getModeOfOperation';
 import Modes from './modes.enum';
