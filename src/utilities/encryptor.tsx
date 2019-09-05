@@ -1,4 +1,5 @@
 import { padding } from 'aes-js';
+import * as filenameReservedRegex from 'filename-reserved-regex';
 import { initializationVector, key } from './constants';
 import getModeOfOperation from './getModeOfOperation';
 import Modes from './modes.enum';
@@ -24,9 +25,10 @@ class Encryptor {
     saveToDisc(encodedBytes);
   }
 
-  public async send(mode: Modes) {
+  public async send(mode: Modes, filename: string) {
     const encodedBytes = await this.encrypt(mode);
-    const file = new File([encodedBytes], 'test.txt');
+
+    const file = new File([encodedBytes], this.getFilename(filename));
 
     const formData = new FormData();
     formData.append('file', file);
@@ -40,6 +42,16 @@ class Encryptor {
       console.log(response);
     } catch (error) {
       console.log(error);
+    }
+  }
+
+  private getFilename(filename: string) {
+    if (!filename) {
+      return this.file.name;
+    }  {
+      const result = filename.replace(filenameReservedRegex(), '');
+      const extension = this.file.name.split('.').pop();
+      return `${result}.${extension}`;
     }
   }
 }

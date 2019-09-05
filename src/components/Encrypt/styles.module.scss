@@ -1,8 +1,22 @@
-.wrapper {
+.container {
   display: flex;
-  margin-bottom: 10px;
-}
-
-.control {
-  margin-left: 15px;
+  flex-direction: column;
+  .wrapper {
+    display: flex;
+    margin-bottom: 10px;
+  }
+  .control {
+    margin-left: 15px;
+  }
+  .inputWrapper {
+    width: 100px;
+    padding-bottom: 20px;
+    height: 0;
+    transition: all .5s;
+    opacity: 0;
+    &.isVisible {
+      opacity: 1;
+      height: 35px;
+    }
+  }
 }
