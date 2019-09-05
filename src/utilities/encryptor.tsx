@@ -1,5 +1,6 @@
 import { padding } from 'aes-js';
 import * as filenameReservedRegex from 'filename-reserved-regex';
+import { toast } from 'react-toastify';
 import { initializationVector, key } from './constants';
 import getModeOfOperation from './getModeOfOperation';
 import Modes from './modes.enum';
@@ -23,6 +24,7 @@ class Encryptor {
   public async save(mode: Modes) {
     const encodedBytes = await this.encrypt(mode);
     saveToDisc(encodedBytes);
+    toast.success('File encrypted successfully');
   }
 
   public async send(mode: Modes, filename: string) {
@@ -39,9 +41,14 @@ class Encryptor {
         method: 'POST',
         body: formData,
       });
-      console.log(response);
+      if (response.ok) {
+        toast.success('File transmitted successfully');
+      } else {
+        toast.error('Some error occurred');
+      }
     } catch (error) {
       console.log(error);
+      toast.error('Some error occurred');
     }
   }
 

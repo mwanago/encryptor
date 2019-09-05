@@ -1,4 +1,5 @@
 import React, { ChangeEvent, Component } from 'react';
+import { ToastContainer } from 'react-toastify';
 import Modes from '../../utilities/modes.enum';
 import Decrypt from '../Decrypt/Decrypt';
 import Encrypt from '../Encrypt/Encrypt';
@@ -32,6 +33,7 @@ class App extends Component<{}, State> {
           onChange={this.handleChange}
           mode={mode}
         />
+        <ToastContainer />
       </div>
     );
   }
