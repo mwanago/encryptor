@@ -6,15 +6,19 @@ import Encrypt from '../Encrypt/Encrypt';
 import Logo from '../Logo/Logo';
 import ModesSelect from '../ModesSelect/ModesSelect';
 import styles from './styles.module.scss';
+import generateKeys from "../../utilities/generateKeys";
 
 interface State {
   mode: Modes;
   publicKey?: string;
+  key: number[],
+  initializationVector: number[]
 }
 
 class App extends Component<{}, State> {
   public state: State = {
     mode: Modes.ctr,
+    ...generateKeys()
   };
   public handleChange = (event: ChangeEvent<{name?: string; value: unknown}>) => {
     this.setState({
@@ -29,13 +33,13 @@ class App extends Component<{}, State> {
     });
   }
   public render () {
-    const { mode, publicKey } = this.state;
+    const { mode, publicKey, initializationVector, key } = this.state;
     return (
       <div className={styles.wrapper}>
         <Logo />
         <div className={styles.buttons}>
-          <Encrypt mode={mode} publicKey={publicKey!}/>
-          <Decrypt mode={mode}/>
+          <Encrypt mode={mode} publicKey={publicKey!} initializationVector={initializationVector} sessionKey={key}/>
+          <Decrypt mode={mode} initializationVector={initializationVector} sessionKey={key}/>
         </div>
         <ModesSelect
           onChange={this.handleChange}

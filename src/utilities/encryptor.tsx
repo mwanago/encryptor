@@ -1,7 +1,6 @@
 import { padding } from 'aes-js';
 import * as filenameReservedRegex from 'filename-reserved-regex';
 import { toast } from 'react-toastify';
-import { initializationVector, key } from './constants';
 import getDataEncryptedWithRSA from './getDataEncryptedWithRSA';
 import getModeOfOperation from './getModeOfOperation';
 import Modes from './modes.enum';
@@ -14,7 +13,7 @@ class Encryptor {
     this.file = file;
   }
 
-  public async encrypt(mode: Modes) {
+  public async encrypt(mode: Modes, key: number[], initializationVector: number[]) {
     const buffer = await (this.file as any)
       .arrayBuffer();
     const bytes = new Uint8Array(buffer);
@@ -22,20 +21,20 @@ class Encryptor {
     return getModeOfOperation(mode, key, initializationVector)!.encrypt(padded);
   }
 
-  public async save(mode: Modes) {
-    const encodedBytes = await this.encrypt(mode);
+  public async save(mode: Modes, key: number[], initializationVector: number[]) {
+    const encodedBytes = await this.encrypt(mode, key, initializationVector);
     saveToDisc(encodedBytes);
     toast.success('File encrypted successfully');
   }
 
-  public async send(mode: Modes, filename: string, publicKey: string) {
-    const encodedBytes = await this.encrypt(mode);
+  public async send(mode: Modes, filename: string, publicKey: string, key: number[], initializationVector: number[]) {
+    const encodedBytes = await this.encrypt(mode, key, initializationVector);
 
     const file = new File([encodedBytes], 'filename');
 
     const formData = new FormData();
 
-    const encryptionResult = await getDataEncryptedWithRSA(publicKey, mode, this.getFilename(filename));
+    const encryptionResult = await getDataEncryptedWithRSA(publicKey, mode, this.getFilename(filename), key, initializationVector);
 
     formData.append('file', file);
     formData.append('encryptedData', new File([encryptionResult], 'filename'))

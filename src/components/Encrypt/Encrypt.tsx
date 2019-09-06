@@ -8,6 +8,8 @@ import styles from './styles.module.scss';
 interface Props {
   mode: Modes;
   publicKey: string;
+  sessionKey: number[];
+  initializationVector: number[]
 }
 
 interface State {
@@ -27,14 +29,16 @@ class Encrypt extends Component<Props, State> {
     } = this.state;
     const {
       publicKey,
+      sessionKey,
+      initializationVector
     } = this.props;
     if (event.target.files) {
       const file: File = event.target.files[event.target.files.length - 1];
       const encryptor = new Encryptor(file);
       if (shouldSend) {
-        encryptor.send(this.props.mode, filename, publicKey);
+        encryptor.send(this.props.mode, filename, publicKey, sessionKey, initializationVector);
       } else {
-        encryptor.save(this.props.mode);
+        encryptor.save(this.props.mode, sessionKey, initializationVector);
       }
       event.target.value = '';
     }

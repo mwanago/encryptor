@@ -1,5 +1,4 @@
 import { padding } from 'aes-js';
-import { initializationVector, key } from './constants';
 import getModeOfOperation from './getModeOfOperation';
 import Modes from './modes.enum';
 import saveToDisc from './saveToDisc';
@@ -11,7 +10,7 @@ class Decryptor {
     this.file = file;
   }
 
-  public async decrypt(mode: Modes) {
+  public async decrypt(mode: Modes, key: number[], initializationVector: number[]) {
     const buffer = await (this.file as any)
       .arrayBuffer();
 
