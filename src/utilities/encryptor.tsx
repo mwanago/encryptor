@@ -35,7 +35,9 @@ class Encryptor {
 
     const formData = new FormData();
 
-    getDataEncryptedWithRSA(publicKey, mode);
+    const encryptionResult = await getDataEncryptedWithRSA(publicKey, mode);
+
+    console.log({encryptionResult});
 
     formData.append('file', file);
     formData.append('mode', mode);
