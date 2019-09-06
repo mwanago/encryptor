@@ -31,16 +31,14 @@ class Encryptor {
   public async send(mode: Modes, filename: string, publicKey: string) {
     const encodedBytes = await this.encrypt(mode);
 
-    const file = new File([encodedBytes], this.getFilename(filename));
+    const file = new File([encodedBytes], 'filename');
 
     const formData = new FormData();
 
-    const encryptionResult = await getDataEncryptedWithRSA(publicKey, mode);
-
-    console.log({encryptionResult});
+    const encryptionResult = await getDataEncryptedWithRSA(publicKey, mode, this.getFilename(filename));
 
     formData.append('file', file);
-    formData.append('mode', mode);
+    formData.append('encryptedData', new File([encryptionResult], 'filename'))
 
     try {
       const response = await fetch(process.env.REACT_APP_API_URL, {

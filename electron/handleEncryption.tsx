@@ -6,6 +6,7 @@ interface IncomingData {
   mode: string;
   key: number[];
   initializationVector: number[];
+  filename: string;
 }
 
 export default function handleEncryption() {
@@ -15,12 +16,14 @@ export default function handleEncryption() {
       mode,
       key,
       initializationVector,
+      filename,
     } = data;
 
     const result = publicEncrypt(publicKey, Buffer.from(JSON.stringify({
       mode,
       key,
       initializationVector,
+      filename,
     })));
 
     event.reply('encryption-result', result);
