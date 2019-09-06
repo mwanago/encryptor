@@ -20,6 +20,10 @@ class App extends Component<{}, State> {
       mode: event.target.value as string,
     });
   }
+  public async componentDidMount() {
+    const response = await fetch(process.env.REACT_APP_API_URL);
+    console.log({ response });
+  }
   public render () {
     const { mode } = this.state;
     return (
