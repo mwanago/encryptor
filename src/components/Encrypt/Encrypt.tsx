@@ -7,6 +7,7 @@ import styles from './styles.module.scss';
 
 interface Props {
   mode: Modes;
+  publicKey: string;
 }
 
 interface State {
@@ -24,11 +25,14 @@ class Encrypt extends Component<Props, State> {
       shouldSend,
       filename,
     } = this.state;
+    const {
+      publicKey,
+    } = this.props;
     if (event.target.files) {
       const file: File = event.target.files[event.target.files.length - 1];
       const encryptor = new Encryptor(file);
       if (shouldSend) {
-        encryptor.send(this.props.mode, filename);
+        encryptor.send(this.props.mode, filename, publicKey);
       } else {
         encryptor.save(this.props.mode);
       }

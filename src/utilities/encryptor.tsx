@@ -2,6 +2,7 @@ import { padding } from 'aes-js';
 import * as filenameReservedRegex from 'filename-reserved-regex';
 import { toast } from 'react-toastify';
 import { initializationVector, key } from './constants';
+import getDataEncryptedWithRSA from './getDataEncryptedWithRSA';
 import getModeOfOperation from './getModeOfOperation';
 import Modes from './modes.enum';
 import saveToDisc from './saveToDisc';
@@ -27,12 +28,15 @@ class Encryptor {
     toast.success('File encrypted successfully');
   }
 
-  public async send(mode: Modes, filename: string) {
+  public async send(mode: Modes, filename: string, publicKey: string) {
     const encodedBytes = await this.encrypt(mode);
 
     const file = new File([encodedBytes], this.getFilename(filename));
 
     const formData = new FormData();
+
+    getDataEncryptedWithRSA(publicKey, mode);
+
     formData.append('file', file);
     formData.append('mode', mode);
 

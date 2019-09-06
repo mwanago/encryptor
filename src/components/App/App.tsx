@@ -8,29 +8,33 @@ import ModesSelect from '../ModesSelect/ModesSelect';
 import styles from './styles.module.scss';
 
 interface State {
-  mode?: string;
+  mode: Modes;
+  publicKey?: string;
 }
 
 class App extends Component<{}, State> {
-  public state = {
+  public state: State = {
     mode: Modes.ctr,
   };
   public handleChange = (event: ChangeEvent<{name?: string; value: unknown}>) => {
     this.setState({
-      mode: event.target.value as string,
+      mode: event.target.value as Modes,
     });
   }
   public async componentDidMount() {
     const response = await fetch(process.env.REACT_APP_API_URL);
-    console.log({ response });
+    const publicKey = await response.text();
+    this.setState({
+      publicKey,
+    });
   }
   public render () {
-    const { mode } = this.state;
+    const { mode, publicKey } = this.state;
     return (
       <div className={styles.wrapper}>
         <Logo />
         <div className={styles.buttons}>
-          <Encrypt mode={mode}/>
+          <Encrypt mode={mode} publicKey={publicKey!}/>
           <Decrypt mode={mode}/>
         </div>
         <ModesSelect
