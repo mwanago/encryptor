@@ -12,13 +12,15 @@ import ConnectionModal from "../ConnectionModal/ConnectionModal";
 interface State {
   mode: Modes;
   publicKey?: string;
-  key: number[],
-  initializationVector: number[]
+  key: number[];
+  initializationVector: number[];
+  isModalOpened: boolean;
 }
 
 class App extends Component<{}, State> {
   public state: State = {
     mode: Modes.ctr,
+    isModalOpened: true,
     ...generateKeys()
   };
   public handleChange = (event: ChangeEvent<{name?: string; value: unknown}>) => {
@@ -26,15 +28,14 @@ class App extends Component<{}, State> {
       mode: event.target.value as Modes,
     });
   }
-  public async componentDidMount() {
-    const response = await fetch(process.env.REACT_APP_API_URL);
-    const publicKey = await response.text();
+  public handleConnect = (publicKey: string) => {
     this.setState({
       publicKey,
+      isModalOpened: false
     });
   }
   public render () {
-    const { mode, publicKey, initializationVector, key } = this.state;
+    const { mode, publicKey, initializationVector, key, isModalOpened } = this.state;
     return (
       <div className={styles.wrapper}>
         <Logo />
@@ -47,7 +48,10 @@ class App extends Component<{}, State> {
           mode={mode}
         />
         <ToastContainer />
-        <ConnectionModal />
+        <ConnectionModal
+          isOpened={isModalOpened}
+          onConnect={this.handleConnect}
+        />
       </div>
     );
   }
