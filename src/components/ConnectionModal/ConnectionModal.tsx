@@ -1,6 +1,7 @@
-import React, {ChangeEvent, Component} from 'react';
-import {Button, Modal, Paper, TextField} from "@material-ui/core";
+import React, {ChangeEvent, Component, FormEvent} from 'react';
+import {Button, CircularProgress, Modal, Paper, TextField} from "@material-ui/core";
 import styles from './styles.module.scss';
+import { toast } from 'react-toastify';
 
 interface Props {
   onConnect: (publicKey: string) => void;
@@ -22,7 +23,7 @@ class ConnectionModal extends Component<Props, State> {
       url: event.target.value
     })
   }
-  handleConnection = async (event: ClickEvent) => {
+  handleConnection = async (event: FormEvent) => {
     event.preventDefault();
     const { url } = this.state;
     const { onConnect } = this.props;
@@ -32,13 +33,15 @@ class ConnectionModal extends Component<Props, State> {
     const response = await fetch(url);
     const publicKey = await response.text();
     onConnect(publicKey);
+    toast.success('Connection established');
     this.setState({
       isConnecting: false
     });
   }
   render () {
     const {
-      url
+      url,
+      isConnecting
     } = this.state;
     const {
       isOpened
@@ -57,8 +60,10 @@ class ConnectionModal extends Component<Props, State> {
                 variant="contained"
                 color="primary"
                 type="submit"
+                disabled={isConnecting}
               >
                 connect
+                {isConnecting && <CircularProgress size={24} className={styles.buttonProgress} />}
               </Button>
             </Paper>
           </form>
