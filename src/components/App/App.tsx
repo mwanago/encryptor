@@ -7,6 +7,7 @@ import Logo from '../Logo/Logo';
 import ModesSelect from '../ModesSelect/ModesSelect';
 import styles from './styles.module.scss';
 import generateKeys from "../../utilities/generateKeys";
+import ConnectionModal from "../ConnectionModal/ConnectionModal";
 
 interface State {
   mode: Modes;
@@ -46,6 +47,7 @@ class App extends Component<{}, State> {
           mode={mode}
         />
         <ToastContainer />
+        <ConnectionModal />
       </div>
     );
   }
