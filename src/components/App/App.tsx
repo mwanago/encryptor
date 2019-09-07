@@ -15,6 +15,7 @@ interface State {
   key: number[];
   initializationVector: number[];
   isModalOpened: boolean;
+  url?: string;
 }
 
 class App extends Component<{}, State> {
@@ -28,19 +29,20 @@ class App extends Component<{}, State> {
       mode: event.target.value as Modes,
     });
   }
-  public handleConnect = (publicKey: string) => {
+  public handleConnect = (publicKey: string, url: string) => {
     this.setState({
       publicKey,
+      url,
       isModalOpened: false,
     });
   }
   public render () {
-    const { mode, publicKey, initializationVector, key, isModalOpened } = this.state;
+    const { mode, publicKey, initializationVector, key, isModalOpened, url } = this.state;
     return (
       <div className={styles.wrapper}>
         <Logo />
         <div className={styles.buttons}>
-          <Encrypt mode={mode} publicKey={publicKey!} initializationVector={initializationVector} sessionKey={key}/>
+          <Encrypt mode={mode} publicKey={publicKey!} initializationVector={initializationVector} sessionKey={key} url={url}/>
           <Decrypt mode={mode} initializationVector={initializationVector} sessionKey={key}/>
         </div>
         <ModesSelect

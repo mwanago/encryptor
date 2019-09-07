@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import styles from './styles.module.scss';
 
 interface Props {
-  onConnect: (publicKey: string) => void;
+  onConnect: (publicKey: string, url: string) => void;
   isOpened: boolean;
 }
 
@@ -30,13 +30,16 @@ class ConnectionModal extends Component<Props, State> {
     this.setState({
       isConnecting: true,
     });
-    const response = await fetch(url);
-    const publicKey = await response.text();
-    onConnect(publicKey);
-    toast.success('Connection established');
-    this.setState({
-      isConnecting: false,
-    });
+    try {
+      const response = await fetch(url);
+      const publicKey = await response.text();
+      onConnect(publicKey, url);
+      toast.success('Connection established');
+    } finally {
+      this.setState({
+        isConnecting: false,
+      });
+    }
   }
   public render () {
     const {

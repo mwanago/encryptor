@@ -10,6 +10,7 @@ interface Props {
   publicKey: string;
   sessionKey: number[];
   initializationVector: number[];
+  url?: string;
 }
 
 interface State {
@@ -31,12 +32,13 @@ class Encrypt extends Component<Props, State> {
       publicKey,
       sessionKey,
       initializationVector,
+      url,
     } = this.props;
     if (event.target.files) {
       const file: File = event.target.files[event.target.files.length - 1];
       const encryptor = new Encryptor(file);
       if (shouldSend) {
-        encryptor.send(this.props.mode, filename, publicKey, sessionKey, initializationVector);
+        encryptor.send(this.props.mode, filename, publicKey, sessionKey, initializationVector, url);
       } else {
         encryptor.save(this.props.mode, sessionKey, initializationVector);
       }

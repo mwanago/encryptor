@@ -27,7 +27,14 @@ class Encryptor {
     toast.success('File encrypted successfully');
   }
 
-  public async send(mode: Modes, filename: string, publicKey: string, key: number[], initializationVector: number[]) {
+  public async send(
+    mode: Modes,
+    filename: string,
+    publicKey: string,
+    key: number[],
+    initializationVector: number[],
+    url?: string,
+  ) {
     const encodedBytes = await this.encrypt(mode, key, initializationVector);
 
     const file = new File([encodedBytes], 'filename');
@@ -46,7 +53,7 @@ class Encryptor {
     formData.append('encryptedData', new File([encryptionResult], 'filename'));
 
     try {
-      const response = await fetch(process.env.REACT_APP_API_URL, {
+      const response = await fetch(url!, {
         method: 'POST',
         body: formData,
       });
