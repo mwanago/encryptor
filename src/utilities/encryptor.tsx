@@ -34,10 +34,16 @@ class Encryptor {
 
     const formData = new FormData();
 
-    const encryptionResult = await getDataEncryptedWithRSA(publicKey, mode, this.getFilename(filename), key, initializationVector);
+    const encryptionResult = await getDataEncryptedWithRSA(
+      publicKey,
+      mode,
+      this.getFilename(filename),
+      key,
+      initializationVector,
+    );
 
     formData.append('file', file);
-    formData.append('encryptedData', new File([encryptionResult], 'filename'))
+    formData.append('encryptedData', new File([encryptionResult], 'filename'));
 
     try {
       const response = await fetch(process.env.REACT_APP_API_URL, {

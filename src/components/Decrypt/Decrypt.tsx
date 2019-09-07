@@ -7,7 +7,7 @@ import FilePicker from '../FilePicker/FilePicker';
 interface Props {
   mode: Modes;
   sessionKey: number[];
-  initializationVector: number[]
+  initializationVector: number[];
 }
 
 class Decrypt extends Component<Props> {
@@ -16,7 +16,7 @@ class Decrypt extends Component<Props> {
       const {
         mode,
         sessionKey,
-        initializationVector
+        initializationVector,
       } = this.props;
       const file: File = event.target.files[event.target.files.length - 1];
       const decryptor = new Decryptor(file);

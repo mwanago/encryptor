@@ -5,7 +5,7 @@ export default function getDataEncryptedWithRSA(
   mode: string,
   filename: string,
   key: number[],
-  initializationVector: number[]
+  initializationVector: number[],
 ): Promise<Uint8Array> {
   return new Promise((resolve) => {
     ipcRenderer.send('encryption', {
@@ -13,7 +13,7 @@ export default function getDataEncryptedWithRSA(
       mode,
       key,
       initializationVector,
-      filename
+      filename,
     });
     ipcRenderer.once('encryption-result', (event, result) => {
       resolve(result);

@@ -1,7 +1,7 @@
-import React, {ChangeEvent, Component, FormEvent} from 'react';
-import {Button, CircularProgress, Modal, Paper, TextField} from "@material-ui/core";
-import styles from './styles.module.scss';
+import { Button, CircularProgress, Modal, Paper, TextField } from '@material-ui/core';
+import React, { ChangeEvent, Component, FormEvent } from 'react';
 import { toast } from 'react-toastify';
+import styles from './styles.module.scss';
 
 interface Props {
   onConnect: (publicKey: string) => void;
@@ -14,43 +14,43 @@ interface State {
 }
 
 class ConnectionModal extends Component<Props, State> {
-  state: State = {
+  public state: State = {
     url: process.env.REACT_APP_API_URL || '',
-    isConnecting: false
-  }
-  onInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    isConnecting: false,
+  };
+  public onInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     this.setState({
-      url: event.target.value
-    })
+      url: event.target.value,
+    });
   }
-  handleConnection = async (event: FormEvent) => {
+  public handleConnection = async (event: FormEvent) => {
     event.preventDefault();
     const { url } = this.state;
     const { onConnect } = this.props;
     this.setState({
-      isConnecting: true
+      isConnecting: true,
     });
     const response = await fetch(url);
     const publicKey = await response.text();
     onConnect(publicKey);
     toast.success('Connection established');
     this.setState({
-      isConnecting: false
+      isConnecting: false,
     });
   }
-  render () {
+  public render () {
     const {
       url,
-      isConnecting
+      isConnecting,
     } = this.state;
     const {
-      isOpened
+      isOpened,
     } = this.props;
     return (
       <Modal open={isOpened}>
         <div className={styles.wrapper} >
           <form onSubmit={this.handleConnection}>
-            <Paper classes={{root: styles.paper}}>
+            <Paper classes={{ root: styles.paper }}>
               <TextField
                 label="client url"
                 value={url}
@@ -69,7 +69,7 @@ class ConnectionModal extends Component<Props, State> {
           </form>
         </div>
       </Modal>
-    )
+    );
   }
 }
 

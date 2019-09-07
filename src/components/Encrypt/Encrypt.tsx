@@ -9,7 +9,7 @@ interface Props {
   mode: Modes;
   publicKey: string;
   sessionKey: number[];
-  initializationVector: number[]
+  initializationVector: number[];
 }
 
 interface State {
@@ -30,7 +30,7 @@ class Encrypt extends Component<Props, State> {
     const {
       publicKey,
       sessionKey,
-      initializationVector
+      initializationVector,
     } = this.props;
     if (event.target.files) {
       const file: File = event.target.files[event.target.files.length - 1];

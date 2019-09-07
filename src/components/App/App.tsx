@@ -1,13 +1,13 @@
 import React, { ChangeEvent, Component } from 'react';
 import { ToastContainer } from 'react-toastify';
+import generateKeys from '../../utilities/generateKeys';
 import Modes from '../../utilities/modes.enum';
+import ConnectionModal from '../ConnectionModal/ConnectionModal';
 import Decrypt from '../Decrypt/Decrypt';
 import Encrypt from '../Encrypt/Encrypt';
 import Logo from '../Logo/Logo';
 import ModesSelect from '../ModesSelect/ModesSelect';
 import styles from './styles.module.scss';
-import generateKeys from "../../utilities/generateKeys";
-import ConnectionModal from "../ConnectionModal/ConnectionModal";
 
 interface State {
   mode: Modes;
@@ -21,7 +21,7 @@ class App extends Component<{}, State> {
   public state: State = {
     mode: Modes.ctr,
     isModalOpened: true,
-    ...generateKeys()
+    ...generateKeys(),
   };
   public handleChange = (event: ChangeEvent<{name?: string; value: unknown}>) => {
     this.setState({
@@ -31,7 +31,7 @@ class App extends Component<{}, State> {
   public handleConnect = (publicKey: string) => {
     this.setState({
       publicKey,
-      isModalOpened: false
+      isModalOpened: false,
     });
   }
   public render () {
